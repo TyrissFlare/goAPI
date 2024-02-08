@@ -11,12 +11,12 @@ type Message struct {
 }
 
 func greetHandler(w http.ResponseWriter, r *http.Request) {
-	message := Message{Greeting: "Hello, World!"}
+	message := Message{Greeting: "Test Module for Go API"}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(message)
 }
 
 func main() {
-	http.HandleFunc("/welcome", greetHandler)
+	http.HandleFunc("/goAPITest", greetHandler)
 	http.ListenAndServe(":8011", nil)
 }
