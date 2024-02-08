@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -22,11 +23,11 @@ func TestGreetHandler(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
 	}
 
-	// expected := `{"Greeting":"Test Module for Go API"}`
-	// fmt.Println(rr.Body.String())
-	// if rr.Body.String() != expected {
-	// 	t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
-	// }
+	expected := `{"Greeting":"Test Module for Go API"}`
+	actual := strings.TrimSpace(rr.Body.String())
+	if actual != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+	}
 
 	var msg Message
 	err = json.Unmarshal(rr.Body.Bytes(), &msg)
